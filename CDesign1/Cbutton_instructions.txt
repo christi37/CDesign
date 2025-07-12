@@ -2,3 +2,17 @@ First you must know how to code a site, if you dont know follow some youtube tut
 
 
 
+Instructions to add a new button:
+
+  0. Go to CDesign Folder. go to CButton and copy and paste that code in a index.html
+
+  1. Copy the existing button element:
+     <button type="button" class="m3-button">Button Text</button>
+
+  2. Paste it wherever needed inside the <body> tag.
+
+  3. Change the button text as desired.
+
+  4. If needed, add an id or other attributes for scripting.
+
+  Note: All styling is handled by the "m3-button" class. No animation or JavaScript needed.
