@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Material 3 Enhanced Button</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Material 3 Simple Button</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
   <style>
     * {
@@ -16,156 +16,55 @@
 
     body {
       display: flex;
-      gap: 20px;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: #1a1a1a;
+      background: #1a1a1a; /* Dark background */
       font-family: 'Roboto', sans-serif;
-      flex-wrap: wrap;
-      padding: 20px;
     }
 
     .m3-button {
-      --button-color: #a58aff;
-      --text-color: #1a1a1a;
-      --text-size: 18px;
-      --padding-x: 2em;
-      --padding-y: 1em;
-      
-      position: relative;
-      overflow: hidden;
       border: none;
-      background: var(--button-color);
-      color: var(--text-color);
-      padding: var(--padding-y) var(--padding-x);
-      font-size: var(--text-size);
+      background: #a58aff; /* Strong purple */
+      color: #1a1a1a; /* Dark text */
+      padding: 0.75em 1.5em;
+      font-size: 14px;
       font-weight: 500;
       letter-spacing: 0.1px;
-      line-height: 1.4;
-      border-radius: 100px;
+      line-height: 20px;
+      border-radius: 100px; /* Pill shape */
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+
+      /* Static shadows */
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),
                   0 1px 3px 1px rgba(0, 0, 0, 0.15);
+
       user-select: none;
       -webkit-user-select: none;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    .m3-button:hover {
-      filter: brightness(0.95);
-      transform: scale(1.05);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3),
-                  0 4px 8px 2px rgba(0, 0, 0, 0.2),
-                  inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-    }
-
+    /* Focus state for accessibility */
     .m3-button:focus-visible {
-      outline: 3px solid var(--button-color);
+      outline: 3px solid #7c4dff;
       outline-offset: 2px;
     }
 
-    .m3-button:active {
-      filter: brightness(0.9);
-      transform: scale(0.98);
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3),
-                  0 1px 2px 1px rgba(0, 0, 0, 0.15);
-    }
-
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      transform: scale(0);
-      animation: ripple-animation 600ms ease-out;
-      pointer-events: none;
-    }
-
-    @keyframes ripple-animation {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-
-    .m3-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: transparent;
-      transition: background 0.2s ease;
-      border-radius: inherit;
-    }
-
-    .m3-button:hover::before {
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .m3-button:active::before {
-      background: rgba(0, 0, 0, 0.12);
-    }
-
+    /* Disabled state */
     .m3-button:disabled {
-      filter: opacity(0.38);
+      background: rgba(165, 138, 255, 0.12);
+      color: rgba(26, 26, 26, 0.38);
       box-shadow: none;
       cursor: not-allowed;
-      transform: none;
     }
   </style>
 </head>
 <body>
-  <!-- Default button -->
-  <button class="m3-button">Default Button</button>
-
-  <!-- Custom green button with larger text -->
-  <button class="m3-button" style="--button-color: #4CAF50; --text-color: white; --text-size: 24px;">
-    Larger Green
+  <button type="button" class="m3-button" id="primary-button">
+    Enabled
   </button>
 
-  <!-- Custom blue button with smaller size -->
-  <button class="m3-button" style="--button-color: #2196F3; --text-color: white; --text-size: 14px; --padding-x: 1.5em; --padding-y: 0.7em;">
-    Smaller Blue
-  </button>
 
-  <!-- Custom red button with huge size -->
-  <button class="m3-button" style="--button-color: #f44336; --text-color: white; --text-size: 32px; --padding-x: 3em; --padding-y: 1.5em;">
-    Huge Red
-  </button>
-
-  <script>
-    document.querySelectorAll('.m3-button').forEach(button => {
-      button.addEventListener('click', function(e) {
-        // Create new ripple without removing existing ones
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-        
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        
-        this.appendChild(ripple);
-        
-        // Remove ripple after animation completes
-        setTimeout(() => ripple.remove(), 600);
-      });
-
-      button.addEventListener('keydown', function(e) {
-        if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault();
-          this.click();
-        }
-      });
-    });
-  </script>
 </body>
 </html>
